@@ -8,8 +8,19 @@ import { Ionicons } from "@expo/vector-icons";
 import { useMutation, useQuery } from "convex/react";
 import { Image } from "expo-image";
 import { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { FlatList } from "react-native-reanimated/lib/typescript/Animated";
+import {
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 export default function Profile() {
   const { signOut, userId } = useAuth();
@@ -112,6 +123,88 @@ export default function Profile() {
           )}
         />
       </ScrollView>
+
+      {/* SELECTED IMAGE MODAL */}
+      <Modal
+        visible={isEditModalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setIsEditModalVisible(false)}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.modalContainer}
+          >
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Edit Profile</Text>
+                <TouchableOpacity onPress={() => setIsEditModalVisible(false)}>
+                  <Ionicons name="close" size={24} color={COLORS.white} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Name</Text>
+                <TextInput
+                  style={styles.input}
+                  value={editedProfile.fullname}
+                  onChangeText={(text) =>
+                    setEditedProfile((prev) => ({ ...prev, fullname: text }))
+                  }
+                  placeholderTextColor={COLORS.grey}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Bio</Text>
+                <TextInput
+                  style={[styles.input, styles.bioInput]}
+                  value={editedProfile.bio}
+                  onChangeText={(text) =>
+                    setEditedProfile((prev) => ({ ...prev, bio: text }))
+                  }
+                  multiline
+                  numberOfLines={4}
+                  placeholderTextColor={COLORS.grey}
+                />
+              </View>
+
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={handleSaveProfile}
+              >
+                <Text style={styles.saveButtonText}>Save Changes</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      <Modal
+        visible={!!selectedPost}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setSelectedPost(null)}
+      >
+        <View style={styles.modalBackdrop}>
+          {selectedPost && (
+            <View style={styles.postDetailContainer}>
+              <View style={styles.postDetailHeader}>
+                <TouchableOpacity onPress={() => setSelectedPost(null)}>
+                  <Ionicons name="close" size={24} color={COLORS.white} />
+                </TouchableOpacity>
+              </View>
+
+              <Image
+                source={selectedPost.imageUrl}
+                cachePolicy={"memory-disk"}
+                style={styles.postDetailImage}
+              />
+            </View>
+          )}
+        </View>
+      </Modal>
     </View>
   );
 }
