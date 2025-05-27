@@ -62,4 +62,5 @@ I built Spotlight as a self-learning project to dive into mobile app development
    ```
 
 ---
+![image](https://github.com/user-attachments/assets/b77afe16-7d54-464f-967a-db1b5ff7d8ee)
 
