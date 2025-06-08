@@ -58,9 +58,14 @@ I built Spotlight as a self-learning project to dive into mobile app development
 
 4. **Start the app**
    ```bash
-   npx expo 
+   npx expo
+
    ```
 
 ---
-![image](https://github.com/user-attachments/assets/b77afe16-7d54-464f-967a-db1b5ff7d8ee)
+![auth-s](https://github.com/user-attachments/assets/ad7c5f14-cc98-4bd8-ab43-3b1e4cce109d)
+![notifcations-s](https://github.com/user-attachments/assets/c33d0943-f866-4af3-b431-e297c29c9295)
+![newpost](https://github.com/user-attachments/assets/df10002d-84fc-4903-86c5-bc5c6dc1f31e)
+![home-p](https://github.com/user-attachments/assets/45b250a1-aeee-41c9-9f38-43ca256a5b50)
+![homescreen](https://github.com/user-attachments/assets/a0102be5-195d-4c91-8805-e95de1bb7203)
 
